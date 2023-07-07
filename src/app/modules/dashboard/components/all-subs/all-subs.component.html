@@ -1,0 +1,36 @@
+<div class="container">
+    <div class="grid">
+        <div class="col-12">
+            <div class="myWallet">
+                {{myWallet | json}}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container">
+    <div class="row">
+         <div class="col-12"  *ngFor="let sub of allSubscription$ ">
+            <div class="card">
+                <div class="card-body">
+                    <div class="sub-image">
+                        <img [attr.src]="sub?.productLogo" alt="Subscription Image" class="img-fluid w-">
+                    </div>
+                    <div class="sub-details">
+                            {{ sub.productName }}
+                    </div>
+                </div>
+            </div>
+         </div>
+    </div>
+</div>
+
+
+<div >
+         
+</div>
+
+
+
