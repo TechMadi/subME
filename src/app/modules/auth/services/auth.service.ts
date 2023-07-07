@@ -28,14 +28,26 @@ export class AuthService {
 
 
   // Sign In with  EmailAndPassword
-  signInWithEmailAndPassword(loginDetails: { email: string, password: string }): Promise<any> {
-    return signInWithEmailAndPassword(this.auth, loginDetails.email, loginDetails.password)
+  async signInWithEmailAndPassword(loginDetails: { email: string, password: string }){
+    return await  signInWithEmailAndPassword(this.auth, loginDetails.email, loginDetails.password)
   }  
 
   // SignUpwithEmailAndPassword
-  signUpWithEmailAndPassword(signUpDetails: any): Observable<any> {
-    return from(createUserWithEmailAndPassword
-      (this.auth, signUpDetails.email, signUpDetails.password))
+  async signUpWithEmailAndPassword(signUpDetails: any ) {
+    return  await  createUserWithEmailAndPassword
+      (this.auth,signUpDetails.email,signUpDetails.password).then(
+        (res) => {
+  
+          let  newUser: IUser = {
+            uid: res.user.uid,
+            displayName: res.user.displayName,
+            email: res.user.email,
+            myWalletBalance: 0,
+            authType:'email and Password'    
+          }
+          this.user=res
+   this.createUser(newUser)
+        })
   }
 
 

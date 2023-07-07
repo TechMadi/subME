@@ -5,8 +5,9 @@ import { doc } from 'firebase/firestore';
 import { Firestore } from '@angular/fire/firestore';
 import { IUser } from 'src/app/modules/common/models/user.model';
 import { Router } from '@angular/router';
-import { ISubscription } from 'src/app/modules/common/models/subscription.model';
+import { IAlert, ISubscription } from 'src/app/modules/common/models/subscription.model';
 import { SubscriptionService } from 'src/app/modules/dashboard/services/subscription.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -16,43 +17,55 @@ import { SubscriptionService } from 'src/app/modules/dashboard/services/subscrip
 export class LoginComponent implements OnInit {
   firestore!: Firestore;
   allSubs: ISubscription[]=[]
-  loginForm = {
-    email: 'demo@subme.co',
-    password: "quikk@23"
+  loginForm: FormGroup;
+  message!: IAlert;
+
+  constructor(private authService: AuthService,private router:Router, private  fb:FormBuilder) {
+    
+    this.loginForm = fb.group({
+      displayName: ['', [Validators.required, Validators.minLength(5)]],
+      email: ["", [Validators.email, Validators.required]],
+      password:["",[Validators.required,Validators.minLength(3)]]
+    })
   }
 
-  constructor(private authService: AuthService,private router:Router) {
-    
+  get displayName() {
+    return  this.loginForm.get('displayName')
+  }
+  get email() {
+    return  this.loginForm.get('email')
+  }
+  get password() {
+    return  this.loginForm.get('password')
   }
 
   ngOnInit(): void {
-
-
-   
    
 // this.loginUser(this.loginForm)
   }
 
-  loginUser(param: any) {
-    this.authService.signInWithEmailAndPassword(param).then(
+
+  loginUser() {
+    let newUser = this.loginForm.value
+    
+   
+    this.authService.signInWithEmailAndPassword(newUser).then(
       () => {
         this.router.navigate(['/app'])
     }
     ).catch((error => {
     
+      this.message = {
+        type: 'danger',
+        message:"Please use the correct details"
+      }
+
   }))
   }
 
 
-  registerUser() {
-    this.authService.signUpWithEmailAndPassword({
-      email: "winnieamandela@gmail.com",
-      password: "winnie@23"
-    }).pipe(
-      
 
-    )
-  }
+ 
 
 
   signInWithGoogle() {
@@ -60,11 +73,19 @@ export class LoginComponent implements OnInit {
     this.authService.signInWithGoogle().then(
       (res) => {
 
+        this.message = {
+          type: "success",
+          message:"Login Successfully"
+        }
         this.router.navigate(['/app'])
 
       }
      
     ).catch((err) => {
+      this.message = {
+        type: "danger",
+        message:"Error!Try again kindly"
+      }
       
     })
    

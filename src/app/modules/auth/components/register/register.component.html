@@ -1,1 +1,127 @@
-<p>register works!</p>
+<div class="container-fluid  mx-auto ">
+    <div class="row  align-items-center vh-100">
+        <div class="col-12 col-md-6 h-100 bg-warning">
+
+
+            <div class="ratio ratio-16x9">
+                <!-- <iframe src="https://embed.lottiefiles.com/animation/37824"  ></iframe> -->
+            </div>
+
+
+
+            <div class="row">
+
+                <div class="col-12 text-center">
+                    <h4>Sub Me</h4>
+                    <p> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quaerat, temporibus. </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 my-auto">
+            <div class="row ps-4">
+<div class="col-12 col-md-7 mb-4">
+                    <p *ngIf="message" class="">
+                        <small>
+                            <ngb-alert [type]="message.type">{{ message.message }}</ngb-alert>
+                        </small>
+                      
+                    </p>
+                    
+                </div>
+                <div class="col-md-10 col-12 mb-4">
+
+                    <h2>Sign Up</h2>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti ex mollitia excepturi labore
+                        optio fugit eius, dignissimos libero delectus ipsum.</p>
+                </div>
+                <div class="col-md-12 col-12">
+                    <form [formGroup]="registerForm" (ngSubmit)="registerUser()" novalidate>
+                        <div class="row">
+                            <div class="col-10">
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <label>Full name</label>
+                                        <input type="text" formControlName="displayName" class="form-control" required
+                                            [ngClass]="{'is-invalid': displayName?.touched && displayName?.invalid }" />
+                                        <!-- errors-->
+                                        <p *ngIf="displayName?.touched && displayName?.invalid" class="invalid-feedback">
+                                            <sup>*</sup>Please enter atleast first name
+                                        </p>
+                                        <p *ngIf="displayName?.errors?.['minlength']" class="invalid-feedback">
+                                            <sup>*</sup>Name shouldn't be less than 5 words
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-10">
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="email">Email</label>
+                                        <input type="email" formControlName="email" class="form-control" required
+                                            [ngClass]="{'is-invalid': email?.touched && email?.invalid }" />
+                                        <!-- errors-->
+
+                                        <p *ngIf="email?.touched && email?.invalid" class="invalid-feedback">
+                                            <sup>*</sup>Please enter a valid email
+                                        </p>
+                                        <p *ngIf="email?.errors?.['minlength']" class="invalid-feedback">
+                                            <sup>*</sup>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-10">
+                                <div class="row">
+                                    <div class="col-md-12 mb-3">
+                                        <label for="password">Password</label>
+                                        <input type="password" formControlName="password" class="form-control" required
+                                            [ngClass]="{'is-invalid': password?.touched && password?.invalid}" />
+                                        <!-- errors-->
+                                        <p *ngIf="password?.touched && password?.invalid" class="invalid-feedback">
+                                            <sup>*</sup>Please provide a valid password
+                                        </p>
+                                        <p *ngIf="password?.errors?.['minlength']" class="error">
+                                            <sup>*</sup>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-10">
+                                <div class="row">
+                                    <div class="col-md-12 mb-3 d-grid gap-2">
+                                        <button class="btn btn-primary " (click)="registerUser()">Register</button>
+                                      
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+                <div class="col-12 col-md-10 text-center border-top  border-light ">
+
+                    <p class="text-small">Have no Account?  <a   class="fw-bold" routerLink="/auth/register" >Register Account</a> </p>
+                     <button class="btn btn-outline-primary" (click)="signInWithGoogle()"> <i class="fab fa-google"></i> Login
+                                            With Google</button>
+                </div>
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>
