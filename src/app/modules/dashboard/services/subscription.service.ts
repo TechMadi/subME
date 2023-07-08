@@ -18,6 +18,7 @@ export class SubscriptionService {
 
   loggedin_user: UserCredential = this.authService.user
   userRef = doc(this.firestore, `users/${this.loggedin_user.user.uid}`);
+ 
 
   subscriptions: ISubscription[] = [
     {
@@ -30,21 +31,18 @@ export class SubscriptionService {
     {
       productName: "Google Photos",
       productLevel: "Annual",
-      productLogo: "https://firebasestorage.googleapis.com/v0/b/subme-m.appspot.com/o/subImages%2Fproduct_spotify.png?alt=media&token=68826636-c15d-41c4-a0f8-d6d02e74678b",
+      productLogo: "https://firebasestorage.googleapis.com/v0/b/subme-m.appspot.com/o/subImages%2Fproduct_photos.png?alt=media&token=2400e76b-1763-474b-8895-118807d54d45",
       productSubValue:500
     },
     {
       productName: "Prime Video",
       productLevel: "Annual",
-      productLogo: "https://firebasestorage.googleapis.com/v0/b/subme-m.appspot.com/o/subImages%2Fproduct_spotify.png?alt=media&token=68826636-c15d-41c4-a0f8-d6d02e74678b",
+      productLogo: "https://firebasestorage.googleapis.com/v0/b/subme-m.appspot.com/o/subImages%2Fproduct_prime.png?alt=media&token=6c8f7b59-929c-4958-a985-2959e5bb54dc",
       productSubValue:700
   }
 ]
 
-  usedSubscriptions:ISubscription[]=[]
   
-  
-  // subRef= collection(this.firestore,'subs')
 
   constructor(private readonly firestore:Firestore,private readonly auth:Auth,private authService:AuthService,) {
   
@@ -71,6 +69,9 @@ async  updateUserWallet(walletUpdate: any, user: UserCredential) {
   
   return this.loggedin_user
 }
+  
+  
+  
   
   async getSubscriptions(userSubscriptions: ISubscription[]) {
     

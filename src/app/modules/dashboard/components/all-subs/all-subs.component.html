@@ -29,7 +29,7 @@
 
 
 <!-- Modal -->
-<ng-template #content let-modal [centered]="true" [animated]="true">
+<ng-template #content let-modal >
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Add New Subscription</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
@@ -71,11 +71,11 @@
 
 
 <!-- List Of Subscriptions -->
-<div class="container-fluid ">
+<div class="container-fluid py-4">
     <div class="row">
         <div class="col-12">
             <div class="row justify-content-evenly">
-                <div class="col-10  col-md-4 my-3 my-md-4" *ngFor="let sub of userDetails.susbcriptions">
+                <div class="col-10  col-md-4 my-3 my-md-4" *ngFor="let sub of userDetails?.susbcriptions">
                     <div class="card">
                         <div class="  row p-4 ">
                             <div class="col-12 my-auto d-flex justify-content-between">
@@ -99,6 +99,10 @@
 
 
             </div>
+        </div>
+
+        <div class="col-12" *ngIf="!userDetails?.susbcriptions">
+             <p class="text-danger fw-bold">You have no subscriptions</p>
         </div>
     </div>
 </div>

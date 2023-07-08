@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Auth, authState,getAuth,User, onAuthStateChanged, UserCredential,user } from '@angular/fire/auth';
-import { Firestore, collectionData,collection, doc, getDoc, getFirestore, query, where, getDocs, setDoc ,updateDoc} from '@angular/fire/firestore';
+import { Firestore, collectionData,collection, doc, getDoc, getFirestore, query, where, getDocs, setDoc ,updateDoc, onSnapshot} from '@angular/fire/firestore';
 
 
 
@@ -40,6 +40,7 @@ ngOnInit(): void {
  
     this.subscriptionService.getMyWallet(this.loggedin_user.user.uid).then(
       (res) => {
+
         this.userDetails = res.data()
           
       }

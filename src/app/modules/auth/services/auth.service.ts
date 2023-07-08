@@ -1,12 +1,13 @@
 import { IUser } from './../../common/models/user.model';
 
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import  {Auth, GoogleAuthProvider, getAuth, signInWithEmailAndPassword, signInWithPopup,createUserWithEmailAndPassword, UserCredential,browserLocalPersistence}   from '@angular/fire/auth';
+
+import  {Auth, GoogleAuthProvider, getAuth, signInWithEmailAndPassword, signInWithPopup,createUserWithEmailAndPassword, UserCredential,browserLocalPersistence, signOut,onAuthStateChanged }   from '@angular/fire/auth';
 import { Injectable, inject } from '@angular/core';
 import { Observable, from, of } from 'rxjs';
 import { collection, doc, getFirestore, setDoc } from 'firebase/firestore';
 import { Firestore, getDoc } from '@angular/fire/firestore';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+
+import { Router } from '@angular/router';
 
 
 
@@ -15,10 +16,10 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 })
 export class AuthService {
  
-  redirectUrl: string = ""
+  redirectUrl: string = "/auth/login"
   user!: UserCredential;
 
-  constructor(private readonly auth: Auth, private firestore: Firestore) {
+  constructor(private readonly auth: Auth, private firestore: Firestore, private router: Router) {
     this.auth = getAuth()
     this.firestore = getFirestore();
 
@@ -28,29 +29,29 @@ export class AuthService {
 
 
   // Sign In with  EmailAndPassword
-  async signInWithEmailAndPassword(loginDetails: { email: string, password: string }){
+  async signInWithEmailAndPassword(loginDetails: { email: string, password: string }) {
     return await signInWithEmailAndPassword(this.auth, loginDetails.email, loginDetails.password).then((res) => {
-    this.user=res
+      this.user = res
     })
-  }  
+  }
 
   // SignUpwithEmailAndPassword
-  async signUpWithEmailAndPassword(signUpDetails: any ) {
-    return  await  createUserWithEmailAndPassword
-      (this.auth,signUpDetails.email,signUpDetails.password).then(
+  async signUpWithEmailAndPassword(signUpDetails: any) {
+    return await createUserWithEmailAndPassword
+      (this.auth, signUpDetails.email, signUpDetails.password).then(
         (res) => {
   
-          let  newUser: IUser = {
+          let newUser: IUser = {
             uid: res.user.uid,
-            displayName: res.user.displayName?  res.user.displayName: signUpDetails.displayName,
+            displayName: res.user.displayName ? res.user.displayName : signUpDetails.displayName,
             email: res.user.email,
             myWalletBalance: 0,
             authType: 'email and Password',
-            susbcriptions:[]
+            susbcriptions: []
             
           }
-          this.user=res
-   this.createUser(newUser)
+          this.user = res
+          this.createUser(newUser)
         })
   }
 
@@ -61,16 +62,16 @@ export class AuthService {
     return signInWithPopup(this.auth, provider).then(
       (res) => {
 
-        let  newUser: IUser = {
+        let newUser: IUser = {
           uid: res.user.uid,
           displayName: res.user.displayName,
           email: res.user.email,
           myWalletBalance: 0,
-          authType: 'google'  ,
-          susbcriptions:[]
+          authType: 'google',
+          susbcriptions: []
         }
 
-        this.user=res
+        this.user = res
         this.createUser(newUser)
       }).catch(err => {
         
@@ -92,45 +93,45 @@ export class AuthService {
 
   
 
- async  getAuthStatus(){
-   await  onAuthStateChanged(this.auth,(user) => {
+  async getAuthStatus() {
+    await onAuthStateChanged(this.auth, (user) => {
       if (user) {
-         return true
+        return true
       }
       else {
         return false
       }
-     })
+    })
     
   }
 
   async getCurrentUser() {
-    onAuthStateChanged(this.auth, (user:any) => {
+    onAuthStateChanged(this.auth, (user: any) => {
       if (user) {
-        return  user
+        return user
       } else {
-           return  null
-        }
-     })
+        return null
+      }
+    })
   }
 
   async getUserDetails() {
     let userDocRef = doc(this.firestore, "users", this.user.user.uid)
     
     return await getDoc(userDocRef).then((res) => {
-      return {... res.data() as IUser}
+      return { ...res.data() as IUser }
     })
   }
 
 
-  isLoggedIn(): boolean{
-   return !!this.auth.currentUser
+  isLoggedIn(): boolean {
+    return !!this.auth.currentUser
   
   }
 
 
   // Sign Out
-  signOutUser() {
-      signOut(this.auth)
+  async signOutUser() {
+    await signOut(this.auth)
   }
 }
