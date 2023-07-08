@@ -19,7 +19,7 @@ export class MyWalletComponent implements OnInit {
   myWallet!: Observable<number>;
   userDetails!: IUser | any;
   user_uid: any;
-  loggedin_user: any;
+  loggedin_user!: any;
   
 
 
@@ -29,8 +29,8 @@ export class MyWalletComponent implements OnInit {
   }
 
 ngOnInit(): void {
-
-  this.getMyWallet()
+ this.getMyWallet()
+  
    
 }
 

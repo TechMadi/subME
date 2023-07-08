@@ -1,6 +1,68 @@
-<div class="conatiner">
-    <div class="col-12">
-        <h2>My Wallet</h2>
-      <app-my-wallet></app-my-wallet>
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+  <div class="container-fluid">
+    <span class="navbar-brand">Sub Me</span>
+    <button class="navbar-toggler" type="button" aria-controls="navbarContent" [attr.aria-expanded]="!collapsed"
+      aria-label="Toggle navigation" (click)="collapsed = !collapsed">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse " [class.collapse]="collapsed" id="navbarContent">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item">
+          <a class="nav-link" tabindex="0" id="navbarDropdown1" role="button"> Home </a>
+
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" tabindex="0" id="navbarDropdown1" role="button"> Feature request </a>
+        </li>
+
+
+      </ul>
     </div>
-</div>
+    <!-- Profile -->
+
+    <div>
+      <img src="https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014_960_720.jpg" alt="Image"
+        style="width: 50px; height: 50px;border-radius: 50%;" class="img-thumbnail ">
+    </div>
+  </div>
+</nav>
+
+<section id="welcome" class="container-fluid">
+
+  <div class="row">
+    <div class="col-12">
+      <!-- <div class="card"> -->
+        <div class="row p-3 p-md-5">
+          <div class="col-12 col-md-6 my-0 my-md-auto">
+            <h4 class="blockquote">Welcome {{userDetails.displayName}}</h4>
+            <p>Let’s see how your spending is coming along</p>
+
+          </div>
+          <div class="col-12 col-md-6"> 
+            <app-my-wallet></app-my-wallet> 
+          </div>
+        </div>
+      <!-- </div> -->
+
+    </div>
+  </div>
+
+
+</section>
+
+
+<!-- Subcriptions -->
+
+<section id="mySubs" class="bg-dark-subtle p-1 p-md-3">
+  <app-all-subs></app-all-subs>
+</section>
+
+
+
+
+
+
+<footer>
+  <div class="bg-secondary"></div>
+</footer>

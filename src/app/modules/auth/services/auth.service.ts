@@ -5,7 +5,7 @@ import  {Auth, GoogleAuthProvider, getAuth, signInWithEmailAndPassword, signInWi
 import { Injectable, inject } from '@angular/core';
 import { Observable, from, of } from 'rxjs';
 import { collection, doc, getFirestore, setDoc } from 'firebase/firestore';
-import { Firestore } from '@angular/fire/firestore';
+import { Firestore, getDoc } from '@angular/fire/firestore';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 
 
@@ -29,7 +29,9 @@ export class AuthService {
 
   // Sign In with  EmailAndPassword
   async signInWithEmailAndPassword(loginDetails: { email: string, password: string }){
-    return await  signInWithEmailAndPassword(this.auth, loginDetails.email, loginDetails.password)
+    return await signInWithEmailAndPassword(this.auth, loginDetails.email, loginDetails.password).then((res) => {
+    this.user=res
+    })
   }  
 
   // SignUpwithEmailAndPassword
@@ -40,10 +42,12 @@ export class AuthService {
   
           let  newUser: IUser = {
             uid: res.user.uid,
-            displayName: res.user.displayName,
+            displayName: res.user.displayName?  res.user.displayName: signUpDetails.displayName,
             email: res.user.email,
             myWalletBalance: 0,
-            authType:'email and Password'    
+            authType: 'email and Password',
+            susbcriptions:[]
+            
           }
           this.user=res
    this.createUser(newUser)
@@ -62,7 +66,8 @@ export class AuthService {
           displayName: res.user.displayName,
           email: res.user.email,
           myWalletBalance: 0,
-          authType:'google'    
+          authType: 'google'  ,
+          susbcriptions:[]
         }
 
         this.user=res
@@ -85,9 +90,7 @@ export class AuthService {
   }
 
 
-  updateCurrentUser(user: IUser) {
-     
-  }
+  
 
  async  getAuthStatus(){
    await  onAuthStateChanged(this.auth,(user) => {
@@ -104,12 +107,19 @@ export class AuthService {
   async getCurrentUser() {
     onAuthStateChanged(this.auth, (user:any) => {
       if (user) {
-       
         return  user
       } else {
            return  null
         }
      })
+  }
+
+  async getUserDetails() {
+    let userDocRef = doc(this.firestore, "users", this.user.user.uid)
+    
+    return await getDoc(userDocRef).then((res) => {
+      return {... res.data() as IUser}
+    })
   }
 
 

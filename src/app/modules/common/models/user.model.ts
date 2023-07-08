@@ -5,8 +5,8 @@ export interface IUser {
    displayName:string | null,
     email: string | null,
     authType: string,
-    myWalletBalance?:number,
-    susbcriptions?:ISubscription[]
+    myWalletBalance:number,
+    susbcriptions: ISubscription[];
  
 
 

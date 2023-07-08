@@ -1,9 +1,12 @@
-import { Observable, from } from 'rxjs';
+import { Observable, from, map } from 'rxjs';
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collectionData, collection, CollectionReference, DocumentData,Query, doc, getDoc, setDoc } from '@angular/fire/firestore';
-import { Auth, UserCredential } from '@angular/fire/auth';
+import { Firestore, collectionData, collection, CollectionReference, DocumentData,Query, doc, getDocs,getDoc, setDoc } from '@angular/fire/firestore';
+import { Auth, Unsubscribe, UserCredential, user } from '@angular/fire/auth';
 import { ISubscription } from '../../common/models/subscription.model';
 import { AuthService } from '../../auth/services/auth.service';
+import { onSnapshot, where } from 'firebase/firestore';
+import { IUser } from '../../common/models/user.model';
+
 
 // import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 
@@ -13,14 +16,38 @@ import { AuthService } from '../../auth/services/auth.service';
 })
 export class SubscriptionService {
 
-  private alSubs!: CollectionReference<DocumentData>;
-  loggedin_user:UserCredential=this.authService.user
+  loggedin_user: UserCredential = this.authService.user
   userRef = doc(this.firestore, `users/${this.loggedin_user.user.uid}`);
+
+  subscriptions: ISubscription[] = [
+    {
+      productName: "Spotify",
+      productLevel: "Annual",
+      productLogo: "https://firebasestorage.googleapis.com/v0/b/subme-m.appspot.com/o/subImages%2Fproduct_spotify.png?alt=media&token=68826636-c15d-41c4-a0f8-d6d02e74678b",
+      productSubValue: 300,
+      
+    },
+    {
+      productName: "Google Photos",
+      productLevel: "Annual",
+      productLogo: "https://firebasestorage.googleapis.com/v0/b/subme-m.appspot.com/o/subImages%2Fproduct_spotify.png?alt=media&token=68826636-c15d-41c4-a0f8-d6d02e74678b",
+      productSubValue:500
+    },
+    {
+      productName: "Prime Video",
+      productLevel: "Annual",
+      productLogo: "https://firebasestorage.googleapis.com/v0/b/subme-m.appspot.com/o/subImages%2Fproduct_spotify.png?alt=media&token=68826636-c15d-41c4-a0f8-d6d02e74678b",
+      productSubValue:700
+  }
+]
+
+  usedSubscriptions:ISubscription[]=[]
+  
   
   // subRef= collection(this.firestore,'subs')
 
-  constructor(private readonly firestore:Firestore,private readonly auth:Auth,private authService:AuthService) {
-    
+  constructor(private readonly firestore:Firestore,private readonly auth:Auth,private authService:AuthService,) {
+  
   }
 
  async getMyWallet(userID:string) {
@@ -38,17 +65,22 @@ async  updateUserWallet(walletUpdate: any, user: UserCredential) {
   }
 
 
-async addSubscription(subToAdd: ISubscription) {
-    
+  async addSubscription(subToAdd: IUser) {
+
   await setDoc(this.userRef, subToAdd, { merge: true })
   
   return this.loggedin_user
 }
   
-  
-  
-  async getSubscriptions() {
-    let subRef= collection(this.firestore,'subs')
-    await  collectionData(subRef)
+  async getSubscriptions(userSubscriptions: ISubscription[]) {
+    
+    if (userSubscriptions) {
+      this.subscriptions = this.subscriptions.filter(x => { return !userSubscriptions.includes(x) }
+      )
+  }
+   
+
+ 
+    return this.subscriptions;
   }
 }

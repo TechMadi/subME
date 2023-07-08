@@ -1,4 +1,12 @@
+import { Timestamp } from "firebase/firestore";
+
 export interface ISubscription {
+	productName: string,
+	productLogo: string,
+	productSubValue: number,
+	productLevel: string,
+	timeCreated?: Timestamp,
+	expiryDate?:Date
 }
 
 

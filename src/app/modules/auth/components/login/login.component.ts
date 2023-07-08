@@ -41,12 +41,16 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
    
-// this.loginUser(this.loginForm)
+this.loginUser()
   }
 
 
   loginUser() {
-    let newUser = this.loginForm.value
+    // let newUser = this.loginForm.value
+    let newUser = {
+      email: 'd@gmail.com',
+      password:"dddddd"
+     }
     
    
     this.authService.signInWithEmailAndPassword(newUser).then(

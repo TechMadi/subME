@@ -1,36 +1,104 @@
-<div class="container">
-    <div class="grid">
-        <div class="col-12">
-            <div class="myWallet">
-                {{myWallet | json}}
-            </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12 col-md-8">
+            <p *ngIf="message" class="">
+                <small>
+                    <ngb-alert [type]="message.type">{{ message.message }}</ngb-alert>
+                </small>
+
+            </p>
         </div>
     </div>
 </div>
 
 
 
-<div class="container">
-    <div class="row">
-         <div class="col-12"  *ngFor="let sub of allSubscription$ ">
-            <div class="card">
-                <div class="card-body">
-                    <div class="sub-image">
-                        <img [attr.src]="sub?.productLogo" alt="Subscription Image" class="img-fluid w-">
-                    </div>
-                    <div class="sub-details">
-                            {{ sub.productName }}
-                    </div>
+<div class="container-fluid my-4">
+    <div class="row justify-content-between">
+        <div class="col-auto">
+            <h4>Your Subscriptions</h4>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquam enim facere aperiam exercitationem,
+                esse sapiente eveniet minus vitae quasi laudantium.</p>
+        </div>
+        <div class="col-auto">
+            <button (click)="open(content)" class="btn  btn-primary"> <i class=" fa fa-solid fa-plus"></i> New </button>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Modal -->
+<ng-template #content let-modal [centered]="true" [animated]="true">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Add New Subscription</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="subsForm" (ngSubmit)="addSubscription()">
+
+            <div class="row">
+                <div class="col-12">
+                    <label for="productName">Select Product</label>
+                    <select class="form-select form-select mb-3" aria-label=".form-select-lg productName"
+                        formControlName="productName">
+                        <option selected>Select One product</option>
+                        <option *ngFor="let sub of allSubscription">{{sub.productName}}</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <label for="productLevel">What Mode are you paying for ?</label>
+                    <select class=" form-select mb-3" aria-label=".form-select-lg productLevel"
+                        formControlName="productLevel" required>
+                        <option selected>Paying Mode</option>
+                        <option *ngFor="let sub of allSubscription">{{sub.productLevel}}</option>
+                    </select>
                 </div>
             </div>
-         </div>
+
+
+
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" ngbAutofocus class="btn btn-primary" (click)="addSubscription()">Add Subscription</button>
+    </div>
+</ng-template>
+
+
+<!-- List Of Subscriptions -->
+<div class="container-fluid ">
+    <div class="row">
+        <div class="col-12">
+            <div class="row justify-content-evenly">
+                <div class="col-10  col-md-4 my-3 my-md-4" *ngFor="let sub of userDetails.susbcriptions">
+                    <div class="card">
+                        <div class="  row p-4 ">
+                            <div class="col-12 my-auto d-flex justify-content-between">
+                                <img [attr.src]="sub.productLogo" style="width: 5em; height: 5em; border-radius: 50%;"
+                                    alt="logo" class="img-thumbnail">
+                                <!-- <div> <button class="btn btn-primary" type="submit">Renew <i
+                                            class=" fa fa-solid fa-plus"></i></button></div> -->
+
+                            </div>
+                            <div class="col-12">
+
+                                <!-- <p ><span class="badge rounded-pill bg-primary text-right">Annual</span></p> -->
+                                <h4 class="fw-bold">{{sub.productName}} Subscription </h4>
+                                <p>{{sub.productSubValue | currency : "Ksh "}} / {{sub.productLevel}}</p>
+                                <p>Expires on May 4 2023</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
     </div>
 </div>
-
-
-<div >
-         
-</div>
-
-
-

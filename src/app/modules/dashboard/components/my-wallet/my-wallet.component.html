@@ -1,9 +1,20 @@
-<h2>
-   {{userDetails|json}}
-   
-</h2>
+<div class="card p-3 p-md-5 bg-primary text-white" >
+   <!-- Icon -->
+   <div class="row ">
+      <div class="col-12 d-flex justify-content-between">
+         <p><i class="fa fa-light fa-money-bill  fa-2x"></i></p>
+         <p>Hide <i class="fa  fa-solid fa-eye-slash"></i></p>
+      </div>
+   </div>
 
-<button (click)="updateMyWallet()">Update</button>
+   <!-- Wallet Details -->
+   <div class="row">
+     <div class="col-12 col-md-6">
+       <p  class="fw-bold fs-3 text order-1">{{userDetails?.myWalletBalance | currency : "Ksh "}}</p>
+       <p>Last Updated 3 mins</p>
+     </div>
+     <div class="col-md-6 col-12 text-end ">
+       <p>{{userDetails?.displayName|| '--' }}</p></div>
+   </div>
 
-<!-- Subs -->
-<app-all-subs></app-all-subs>
+ </div>
