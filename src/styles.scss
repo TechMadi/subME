@@ -13,7 +13,7 @@
 
 *{
 
-    font-size: 12px;
+    font-size: 14px;
     font-family: 'Mulish', sans-serif;
     // background-color: white;
 }
@@ -29,8 +29,17 @@
    
 }
 
+
+
+.bg-light{
+  background-color: var(--primaryLight);
+}
+
 .text-purple{
-     color: var(--lightPurple);
+    color: var(--lightPurple);
+}
+.blurText{
+    filter: blur(20px);
 }
 
 .btn-purple{
@@ -46,6 +55,7 @@
         border-color:rgba( 58,1,92, 0.4) ;
         border-width: 0.3rem;
     }
+    
 }
 
 .btn-purple-outline{
@@ -61,7 +71,25 @@
         border-color:rgba( 58,1,92, 0.4) ;
         border-width: 0.3rem;
     }
+   
 }
+
+
+.nav-item .nav-link{
+     color: var(--darkPurple);
+
+     &:hover{
+         color: rgba( 58,1,92, 0.4) ;
+         transition: ease-in  3ms color;
+     }
+}
+
+
+
+
+
+
+
 
 
 

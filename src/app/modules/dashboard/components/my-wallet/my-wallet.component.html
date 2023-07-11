@@ -1,9 +1,11 @@
-<div class="card p-3 p-md-5 bg-primary text-white" >
+<div class="card p-3 p-md-5 bg-purple text-white" >
    <!-- Icon -->
    <div class="row ">
       <div class="col-12 d-flex justify-content-between">
-         <p><i class="fa fa-light fa-money-bill  fa-2x"></i></p>
-         <p><a class="link-offset-hoover-1 link-light pe-auto"(click)="getMyWallet()" >Refresh</a></p>
+         <p><i class="fa fa-light fa-money-bill  fa-2x"></i>  </p>
+         <p>  <a class="ink-offset-2 link-underline link-underline-opacity-0  pe-auto text-white"(click)="getMyWallet()" role="button" > <i class="fa fas fa-sync-alt"></i> Refresh</a> </p>
+
+       
 
       </div>
    </div>
@@ -11,11 +13,15 @@
    <!-- Wallet Details -->
    <div class="row">
      <div class="col-12 col-md-6">
-       <p  class="fw-bold fs-3 text order-1">{{userDetails?.myWalletBalance | currency : "Ksh "}}</p>
+       <p  class="fw-bold fs-3 text order-1"   [ngClass]="{'blurText': blurBalance}">{{userDetails?.myWalletBalance | currency : "Ksh "}}</p>
        <p>Last Updated 3 mins</p>
      </div>
      <div class="col-md-6 col-12 text-end ">
-       <p>{{userDetails?.displayName|| '--' }}</p></div>
+       <p>{{userDetails?.displayName|| '--' }}</p>
+       <button  class="btn text-white" (click)=" blurBalance=! blurBalance"> <i class=""  [ngClass]="blurBalance  ? 'fa fas fa-eye-slash' :'fa fas fa-eye '"  aria-hidden="true"></i>  {{blurBalance ===false ? "Hide":"Show"}} Balance </button>
+
+       
+      </div>
    </div>
 
  </div>

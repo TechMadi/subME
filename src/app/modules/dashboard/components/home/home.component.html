@@ -1,21 +1,22 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light  fixed-top">
   <div class="container-fluid">
     <a class="navbar-brand">
-      <img src="../../../../../assets/branding/subme_logo.png" alt=""  class="navbar-brand-image">
+      <img src="../../../../../assets/branding/subme_logo.png" alt="" class="w-75">
     </a>
     <button class="navbar-toggler" type="button" aria-controls="navbarContent" [attr.aria-expanded]="!collapsed"
       aria-label="Toggle navigation" (click)="collapsed = !collapsed">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="navbar-collapse " [class.collapse]="collapsed" id="navbarContent">
+    <div class="navbar-collapse " [class.collapse]="collapsed">
       <ul class="navbar-nav mx-auto">
         <li class="nav-item">
-          <a class="nav-link link-offset-3-hover"  id="navbarDropdown1" role="button" [routerLink]="['/home`']" routerLinkActive="active" (click)="collapsed = !collapsed" > Home </a>
+          <a class="nav-link link-offset-3-hover fw-semibold fs-5" role="button" [routerLink]="['/home`']"
+            routerLinkActive="active" (click)="collapsed = !collapsed"> Home </a>
 
         </li>
         <li class="nav-item">
-          <a class="nav-link link-offset-3-hover"  id="navbarDropdown2" role="button" (click)="logOut()"> Log Out</a>
+          <a class="nav-link link-offset-3-hover fw-semibold fs-5" role="button" (click)="logOut()"> Log Out</a>
         </li>
 
 
@@ -24,8 +25,9 @@
     <!-- Profile -->
 
     <div class="d-none d-md-inline-block">
-      <img [src]="loggedIn_user.user.photoURL ? loggedIn_user.user.photoURL : 'https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014_960_720.jpg'" alt="Image"
-        style="width: 50px; height: 50px;border-radius: 50%;" class="img-thumbnail ">
+      <img
+        [src]="loggedIn_user.user.photoURL ? loggedIn_user.user.photoURL : 'https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014_960_720.jpg'"
+        alt="Image" style="width: 50px; height: 50px;border-radius: 50%;" class="img-thumbnail ">
     </div>
   </div>
 </nav>
@@ -34,20 +36,21 @@
 
   <div class="row">
     <div class="col-12 mt-5">
-      <!-- <div class="card"> -->
-        <div class="row p-3 p-md-5 mt-3 mt-md-auto">
-          <div class="col-12 col-md-6 my-0 my-md-auto">
-            <p><small>My Wallet</small></p>
-            <h4 class="blockquote">Welcome {{userDetails?.displayName}}</h4>
-            <p>Let’s see how your spending is coming along</p>
-            <button (click)="open(content)" class="btn  btn-success"> <i class=" fa fa-solid fa-plus me-2"></i>Fill Wallet </button>
+      <div class="card">
+      <div class="row p-3 p-md-5 mt-3 mt-md-auto">
+        <div class="col-12 col-md-6 my-0 my-md-auto">
 
-          </div>
-          <div class="col-12 col-md-6 mt-3 mt-md-auto"> 
-            <app-my-wallet></app-my-wallet> 
-          </div>
+          <h4 class="blockquote">Welcome {{userDetails?.displayName || "to SubMe"}}</h4>
+          <p>Let’s see how your spending is coming along !</p>
+          <button (click)="open(content)" class="btn  btn-purple"> <i
+              class=" fa fa-regular fa-credit-card me-2"></i>Re-fill Wallet </button>
+
         </div>
-      <!-- </div> -->
+        <div class="col-12 col-md-5 mt-3 mt-md-auto  mx-auto">
+          <app-my-wallet></app-my-wallet>
+        </div>
+      </div>
+      </div>
 
     </div>
   </div>
@@ -55,64 +58,64 @@
 
   <!-- Modal -->
   <!-- Modal -->
-<ng-template #content let-modal >
-  <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Update Wallet</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-  </div>
-  <div class="modal-body" *ngIf="!isLoading">
+  <ng-template #content let-modal>
+    <div class="modal-header bg-purple">
+      <h4 class="modal-title  text-white" id="modal-basic-title">Refill Wallet</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body" *ngIf="!isLoading">
       <form [formGroup]="walletForm" (ngSubmit)="addWallet()">
 
         <div class="row">
           <div class="col-md-12 mb-3">
             <label for="myMpesaNumber">Mpesa Number</label>
-            <input type="tel" formControlName="myMpesaNumber" class="form-control" required pattern="[1-9]{1}[0-9]{9}"
-                [ngClass]="{'is-invalid': myMpesaNumber?.touched && myMpesaNumber?.invalid}"  />
+            <input type="tel" formControlName="myMpesaNumber" class="form-control" required pattern="^254\d{9}$"
+              [ngClass]="{'is-invalid': myMpesaNumber?.touched && myMpesaNumber?.invalid}" />
             <!-- errors-->
             <p *ngIf="myMpesaNumber?.touched && myMpesaNumber?.invalid" class="invalid-feedback">
-                <sup>*</sup>Please enter  a valid Phone Number with country code
+              <sup>*</sup>Please enter a Kenyan Phone Number with country code
             </p>
             <p *ngIf="myMpesaNumber?.errors?.['maxLength']" class="error">
-                <sup>*</sup> Digits should not be more 10
+              <sup>*</sup> Digits should not be more 10
             </p>
-        </div>
-          <div class="col-md-12 mb-3">
-              <label for="myWalletBalance">New Amount</label>
-              <input type="number" formControlName="myWalletBalance" class="form-control" required
-                  [ngClass]="{'is-invalid': myWalletBalance?.touched && myWalletBalance?.invalid}" />
-              <!-- errors-->
-              <p *ngIf="myWalletBalance?.touched && myWalletBalance?.invalid" class="invalid-feedback">
-                  <sup>*</sup>Please provide a valid amount
-              </p>
-              <p *ngIf="myWalletBalance?.errors?.['min']" class="invalid-feedback">
-                  <sup>*</sup> Amount should not be below  10
-              </p>
           </div>
-      </div>
+          <div class="col-md-12 mb-3">
+            <label for="myWalletBalance">New Amount</label>
+            <input type="number" formControlName="myWalletBalance" class="form-control" required
+              [ngClass]="{'is-invalid': myWalletBalance?.touched && myWalletBalance?.invalid}" />
+            <!-- errors-->
+            <p *ngIf="myWalletBalance?.touched && myWalletBalance?.invalid || myWalletBalance?.errors?.['min']"
+              class="invalid-feedback">
+              <sup>*</sup>Please provide a valid amount above 10
+            </p>
 
-        
+          </div>
+        </div>
+
+
 
 
 
       </form>
 
-      
 
-  </div>
 
-  <div class="modal-body" *ngIf="isLoading">
-    <div class="d-flex justify-content-center">
-      <div class="spinner-border" role="status">
-        <span class="visually-hidden">Loading...</span>
-        <p>Waiting for Mpesa</p>
+    </div>
+
+    <div class="modal-body" *ngIf="isLoading">
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+          <p>Waiting for Mpesa</p>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="modal-footer">
-      <button type="button" ngbAutofocus class="btn btn-primary" (click)="addWallet()" *ngIf="!isLoading">Update Wallet</button >
+    <div class="modal-footer">
+      <button type="button" ngbAutofocus class="btn btn-purple" (click)="addWallet()" *ngIf="!isLoading"
+        [disabled]="walletForm.invalid">Update Wallet</button>
       <p *ngIf="isLoading">Wait A minute !</p>
-  </div>
-</ng-template>
+    </div>
+  </ng-template>
 
 
 </section>
@@ -120,6 +123,11 @@
 
 <!-- Subcriptions -->
 
-<section id="mySubs" class="bg-dark-subtle p-1 p-md-3">
-  <app-all-subs></app-all-subs>
+<section id="mySubs" class=" mt-5 p-1 p-md-3">
+  <div class="row">
+    <div class="col-12 mt-5">
+      <app-all-subs></app-all-subs>
+        </div>
+        </div>
+ 
 </section>

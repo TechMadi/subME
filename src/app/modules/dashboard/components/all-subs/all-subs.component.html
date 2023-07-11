@@ -13,15 +13,15 @@
 
 
 
-<div class="container-fluid my-4">
-    <div class="row justify-content-between">
+<div class="container-fluid">
+    <div class="row justify-content-between pt-2 pt-md-2">
         <div class="col-auto">
             <h4>Your Subscriptions</h4>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquam enim facere aperiam exercitationem,
-                esse sapiente eveniet minus vitae quasi laudantium.</p>
+            <!-- <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquam enim facere aperiam exercitationem,
+                esse sapiente eveniet minus vitae quasi laudantium.</p> -->
         </div>
-        <div class="col-auto">
-            <button (click)="open(content)" class="btn  btn-primary"> <i class=" fa fa-solid fa-plus"></i> New </button>
+        <div class="col-auto my-auto">
+            <button (click)="open(content)" class="btn  btn-purple"> <i class=" fa fa-solid fa-plus"></i> New </button>
         </div>
     </div>
 
@@ -29,7 +29,7 @@
 
 
 <!-- Modal -->
-<ng-template #content let-modal >
+<ng-template #content let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-basic-title">Add New Subscription</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
@@ -71,29 +71,40 @@
 
 
 <!-- List Of Subscriptions -->
-<div class="container-fluid py-4">
+<div class="container-fluid py-2 py-md-4">
     <div class="row">
         <div class="col-12">
             <div class="row justify-content-evenly">
-                <div class="col-10  col-md-4 my-3 my-md-4" *ngFor="let sub of userDetails?.susbcriptions">
-                    <div class="card">
-                        <div class="  row p-4 ">
-                            <div class="col-12 my-auto d-flex justify-content-between">
-                                <img [attr.src]="sub.productLogo" style="width: 5em; height: 5em; border-radius: 50%;"
-                                    alt="logo" class="img-thumbnail">
-                                <!-- <div> <button class="btn btn-primary" type="submit">Renew <i
-                                            class=" fa fa-solid fa-plus"></i></button></div> -->
 
-                            </div>
-                            <div class="col-12">
+                <div class="col-11  col-md-4 my-3 my-md-4" *ngFor="let sub of userDetails?.susbcriptions">
 
-                                <!-- <p ><span class="badge rounded-pill bg-primary text-right">Annual</span></p> -->
-                                <h4 class="fw-bold">{{sub.productName}} Subscription </h4>
-                                <p>{{sub.productSubValue | currency : "Ksh "}} / {{sub.productLevel}}</p>
-                                <p>Expires on May 4 2023</p>
+                    <div class="row">
+                        <div class="col-4 my-auto d-flex justify-content-end">
+                            <img [attr.src]="sub.productLogo" alt="logo"
+                                class="img-thumbnail w-100 h-100 rounded-circle">
+                        </div>
+                        <div class="col-12 col-md-8">
+
+                            <div class="card bg-light p-2">
+                                <div class="row">
+                                    <div class="col-12 px-3 px-md-4 py-md-3 py-4">
+                                        <p>
+                                            <span class="badge rounded-pill text-bg-warning float-end   mb-2 "> {{sub.productLevel}}</span>
+
+                                           </p>
+                                        <h4 class="fw-bold">{{sub.productName}} Subscription </h4>
+                                        <p class="text-secondary">{{sub.productSubValue | currency : "Ksh "}} </p>
+                                        <p class="text-secondary">Expires on {{'May 4 , 2023' | date}}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+
+
+
+
 
                 </div>
 
@@ -102,7 +113,7 @@
         </div>
 
         <div class="col-12" *ngIf="!userDetails?.susbcriptions">
-             <p class="text-danger fw-bold">You have no subscriptions</p>
+            <p class="text-danger fw-bold">You have no subscriptions</p>
         </div>
     </div>
 </div>

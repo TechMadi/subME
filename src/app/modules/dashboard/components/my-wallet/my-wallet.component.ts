@@ -20,6 +20,7 @@ export class MyWalletComponent implements OnInit {
   userDetails!: IUser | any;
   user_uid: any;
   loggedin_user!: any;
+  blurBalance:boolean=true
   
 
 

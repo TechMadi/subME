@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { UserCredential } from 'firebase/auth';
 import { doc } from 'firebase/firestore';
@@ -10,14 +10,14 @@ import {
   ISubscription,
 } from 'src/app/modules/common/models/subscription.model';
 import { SubscriptionService } from 'src/app/modules/dashboard/services/subscription.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit,OnDestroy {
   firestore!: Firestore;
   allSubs: ISubscription[] = [];
   loginForm: FormGroup;
@@ -45,9 +45,18 @@ export class LoginComponent implements OnInit {
     return this.loginForm.get('password');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  
+  }
+
+ngOnDestroy(): void {
+    this.loginForm.reset()
+}
+
 
   loginUser() {
+    
+
     let newUser = this.loginForm.value;
 
     this.authService
