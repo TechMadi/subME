@@ -3,12 +3,12 @@ import { AuthService } from '../../services/auth.service';
 import { UserCredential } from 'firebase/auth';
 import { doc } from 'firebase/firestore';
 import { Firestore } from '@angular/fire/firestore';
-import { IUser } from 'src/app/modules/common/models/user.model';
+import { IUser } from 'src/app/models/user.model';
 import { Router } from '@angular/router';
 import {
   IAlert,
   ISubscription,
-} from 'src/app/modules/common/models/subscription.model';
+} from 'src/app/models/subscription.model';
 import { SubscriptionService } from 'src/app/modules/dashboard/services/subscription.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 

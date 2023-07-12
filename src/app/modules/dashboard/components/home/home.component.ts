@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { IUser } from 'src/app/modules/common/models/user.model';
+import { IUser } from 'src/app/models/user.model';
 import { SubscriptionService } from '../../services/subscription.service';
 
 @Component({
@@ -14,7 +14,7 @@ import { SubscriptionService } from '../../services/subscription.service';
 export class HomeComponent implements OnInit {
   
   userDetails!: IUser;
-  collapsed = true;
+
   loggedIn_user = this.authService.user
   walletForm: FormGroup = new FormGroup({
     myWalletBalance: new FormControl(0, [Validators.required, Validators.min(10)]),

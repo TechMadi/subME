@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { IAlert } from 'src/app/modules/common/models/subscription.model';
-import { IUser } from 'src/app/modules/common/models/user.model';
+import { IAlert } from 'src/app/models/subscription.model';
+import { IUser } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-register',

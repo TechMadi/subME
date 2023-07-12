@@ -6,7 +6,7 @@ import { Firestore, collectionData,collection, doc, getDoc, getFirestore, query,
 
 
 import { Observable, map } from 'rxjs';
-import { IUser } from 'src/app/modules/common/models/user.model';
+import { IUser } from 'src/app/models/user.model';
 import { SubscriptionService } from '../../services/subscription.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 

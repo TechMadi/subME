@@ -6,6 +6,7 @@ import { MyWalletComponent } from './components/my-wallet/my-wallet.component';
 import { AllSubsComponent } from './components/all-subs/all-subs.component';
 import { NgbAlert, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../shared/shared.module';
 
 
 
@@ -21,7 +22,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NgbModalModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbAlert
+    NgbAlert,
+    SharedModule
   ]
 })
 export class DashboardModule { }

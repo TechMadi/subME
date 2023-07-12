@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-md navbar-light bg-light  fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand">
+        <img src="../../../../../assets/branding/subme_logo.png" alt="" class="w-75">
+      </a>
+      <button class="navbar-toggler" type="button" aria-controls="navbarContent" [attr.aria-expanded]="!collapsed"
+        aria-label="Toggle navigation" (click)="collapsed = !collapsed">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+  
+      <div class="navbar-collapse " [class.collapse]="collapsed">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item">
+            <a class="nav-link link-offset-3-hover fw-semibold fs-5" role="button" routerLink="['/home']"
+              routerLinkActive="active" (click)="collapsed = !collapsed"> Home </a>
+  
+          </li>
+          <li class="nav-item">
+            <a class="nav-link link-offset-3-hover fw-semibold fs-5" role="button" (click)="logOut()"> Log Out</a>
+          </li>
+  
+  
+        </ul>
+      </div>
+      <!-- Profile -->
+  
+      <div class="d-none d-md-inline-block">
+        <img
+          [src]="loggedIn_user.user.photoURL ? loggedIn_user.user.photoURL : 'https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014_960_720.jpg'"
+          alt="Image" style="width: 50px; height: 50px;border-radius: 50%;" class="img-thumbnail ">
+      </div>
+    </div>
+  </nav>

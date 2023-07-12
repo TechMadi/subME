@@ -14,11 +14,11 @@ import {
 import {
   IAlert,
   ISubscription,
-} from 'src/app/modules/common/models/subscription.model';
+} from 'src/app/models/subscription.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
-import { IUser } from 'src/app/modules/common/models/user.model';
+import { IUser } from 'src/app/models/user.model';
 import { user } from '@angular/fire/auth';
 
 @Component({

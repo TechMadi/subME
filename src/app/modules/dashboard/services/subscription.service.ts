@@ -2,10 +2,10 @@ import { Observable, from, map } from 'rxjs';
 import { Injectable, inject } from '@angular/core';
 import { Firestore, collectionData, collection, CollectionReference, DocumentData,Query, doc, getDocs,getDoc, setDoc } from '@angular/fire/firestore';
 import { Auth, Unsubscribe, UserCredential, user } from '@angular/fire/auth';
-import { ISubscription } from '../../common/models/subscription.model';
+import { ISubscription } from '../../../models/subscription.model';
 import { AuthService } from '../../auth/services/auth.service';
 import { onSnapshot, where } from 'firebase/firestore';
-import { IUser } from '../../common/models/user.model';
+import { IUser } from '../../../models/user.model';
 
 
 // import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';

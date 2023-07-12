@@ -20,9 +20,11 @@ import { getFirestore } from 'firebase/firestore';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+  
   ],
   imports: [
     BrowserModule,
@@ -37,6 +39,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
    
   ],
   providers: [],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

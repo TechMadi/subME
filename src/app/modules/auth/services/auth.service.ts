@@ -1,4 +1,4 @@
-import { IUser } from './../../common/models/user.model';
+import { IUser } from '../../../models/user.model';
 
 
 import  {Auth, GoogleAuthProvider, getAuth, signInWithEmailAndPassword, signInWithPopup,createUserWithEmailAndPassword, UserCredential,browserLocalPersistence, signOut,onAuthStateChanged }   from '@angular/fire/auth';
